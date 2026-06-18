@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}SSRF Lab{% endblock %}
+{% block content %}
+<h1>SSRF Lab</h1>
+<p>The server will fetch the content of the URL you provide.</p>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">URL to Fetch</label>
+                <input type="text" name="url" class="form-control" placeholder="http://google.com" value="{{ url }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Fetch Content</button>
+        </form>
+    </div>
+</div>
+
+{% if content %}
+    <h3>Fetched Content</h3>
+    <pre class="bg-light p-3 border"><code>{{ content }}</code></pre>
+{% endif %}
+{% endblock %}

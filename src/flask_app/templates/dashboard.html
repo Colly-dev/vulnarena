@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Welcome to VulnArena</h1>
+        <p class="lead">This is a deliberately vulnerable web application for security testing practice.</p>
+        <hr>
+        <h3>Available Labs</h3>
+        <div class="list-group">
+            <a href="/sqli" class="list-group-item list-group-item-action">SQL Injection Lab</a>
+            <a href="/xss" class="list-group-item list-group-item-action">XSS (Cross-Site Scripting) Lab</a>
+            <a href="/csrf" class="list-group-item list-group-item-action">CSRF (Cross-Site Request Forgery) Lab</a>
+            <a href="/ssrf" class="list-group-item list-group-item-action">SSRF (Server-Side Request Forgery) Lab</a>
+            <a href="/idor/1" class="list-group-item list-group-item-action">IDOR Lab</a>
+            <a href="/upload" class="list-group-item list-group-item-action">Insecure File Upload Lab</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h5 class="card-title">User Info</h5>
+                {% if current_user.is_authenticated %}
+                    <p><strong>Username:</strong> {{ current_user.username }}</p>
+                    <p><strong>Role:</strong> {{ current_user.role }}</p>
+                    <hr>
+                    <h6>Update Email (CSRF Lab)</h6>
+                    <form action="/csrf" method="POST">
+                        <div class="mb-3">
+                            <input type="email" name="email" class="form-control" placeholder="New Email">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">Update Email</button>
+                    </form>
+                {% else %}
+                    <p>Please <a href="/login">login</a> to see your profile.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

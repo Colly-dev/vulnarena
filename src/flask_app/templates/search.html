@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Search Lab{% endblock %}
+{% block content %}
+<h1>Vulnerability Lab</h1>
+
+{% if xss_name %}
+    <div class="alert alert-info">
+        Results for: {{ xss_name | safe }}
+    </div>
+{% endif %}
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">User Search (SQLi & XSS)</h5>
+        <form method="POST" action="/sqli" class="row g-3 mb-3">
+            <div class="col-auto">
+                <input type="text" name="user_id" class="form-control" placeholder="User ID">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Search (SQLi)</button>
+            </div>
+        </form>
+
+        <form method="GET" action="/xss" class="row g-3">
+            <div class="col-auto">
+                <input type="text" name="name" class="form-control" placeholder="Your Name">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-secondary">Greeting (XSS)</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if query %}
+    <div class="alert alert-secondary">
+        <code>Executed Query: {{ query }}</code>
+    </div>
+{% endif %}
+
+{% if error %}
+    <div class="alert alert-danger">
+        <strong>Database Error:</strong> {{ error }}
+    </div>
+{% endif %}
+
+{% if results %}
+    <h3>Search Results</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in results %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

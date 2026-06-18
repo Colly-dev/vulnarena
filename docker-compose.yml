@@ -1,0 +1,48 @@
+# ⚠️ WARNING: This application is INTENTIONALLY VULNERABLE.
+# DO NOT deploy to production or expose to the internet.
+
+version: '3.8'
+
+services:
+  flask_app:
+    build:
+      context: .
+      dockerfile: src/flask_app/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_APP=src/flask_app/app.py
+      - FLASK_ENV=development
+    depends_on:
+      - mysql
+
+  php_app:
+    build:
+      context: .
+      dockerfile: src/php_app/Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/php_app:/var/www/html
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: vulnarena
+      MYSQL_USER: vulnuser
+      MYSQL_PASSWORD: vulnpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  default:
+    name: vulnarena_net

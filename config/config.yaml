@@ -1,0 +1,26 @@
+# ⚠️ WARNING: This application is INTENTIONALLY VULNERABLE.
+# DO NOT deploy to production or expose to the internet.
+
+flask:
+  secret_key: "deliberately-insecure-secret-key"
+  debug: true # ⚠️ WARNING: Debug mode is enabled for educational purposes
+  port: 5000
+
+database:
+  uri: "sqlite:///vulnarena.db"
+  mysql_host: "localhost"
+  mysql_user: "vulnuser"
+  mysql_password: "vulnpassword"
+  mysql_db: "vulnarena"
+
+vulnerabilities:
+  sqli: true
+  xss: true
+  csrf: true
+  ssrf: true
+  idor: true
+  file_upload: true
+
+reports:
+  output_dir: "docs/reports"
+  format: "html"

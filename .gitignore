@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+logs/*.log
+
+# Database
+*.sqlite
+*.db
+
+# Uploads
+src/flask_app/static/uploads/*
+!src/flask_app/static/uploads/.gitkeep
+src/php_app/uploads/*
+!src/php_app/uploads/.gitkeep
+
+# Docker
+.docker/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div class="alert alert-warning">
+    <h3>👑 Admin Control Center</h3>
+    <p>Welcome, {{ current_user.username }}. You have accessed the restricted admin area.</p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-dark text-white">System Logs</div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Event</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-01-01 10:00:00</td>
+                            <td>System Startup</td>
+                            <td><span class="badge bg-success">OK</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-01 10:05:00</td>
+                            <td>Database Connected</td>
+                            <td><span class="badge bg-success">OK</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
