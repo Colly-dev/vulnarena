@@ -49,41 +49,59 @@ The lab is orchestrated as a microservices environment:
 | **SSRF** | Internal Metadata Access | Strict URL Validation & Egress Filtering |
 | **Insecure Uploads** | Arbitrary File Execution | MIME-type Validation & Filename Sanitization |
 
-## 🛠️ Setup & Usage
+## 🛠️ Installation
 
 ### Prerequisites
-*   Docker & Docker Compose
-*   Python 3.10+ (for automation scripts)
+*   **Python 3.12+**
+*   **Docker & Docker Compose** (Required for database and PHP app orchestration)
+*   **Git**
 
-### Installation
-1.  **Clone the Lab**
-    ```bash
-    git clone https://github.com/Colly-dev/vulnarena.git
-    cd vulnarena
-    ```
+### Setup & OS-Specific Instructions
 
-2.  **Initialize the Environment**
-    ```bash
-    bash automation/startup/start_lab.sh
-    ```
-    *Note: You must accept the security disclaimer to proceed.*
-
-3.  **Access Points**
-    *   **Flask Dashboard**: `http://localhost:5000`
-    *   **PHP Lab**: `http://localhost:8080`
-    *   **Database**: `localhost:3306`
-
-## 🧪 Security Testing & Validation
-
-To run the automated security suite and verify remediations:
-
+#### 1. Clone the Repository
 ```bash
-# Run the full test suite
-pytest tests/
-
-# Execute specific vulnerability validation
-python src/attacks/automated/vuln_validator.py
+git clone https://github.com/Colly-dev/vulnarena.git
+cd vulnarena
 ```
+
+#### 2. Create and Activate Virtual Environment
+| Operating System | Command |
+| :--- | :--- |
+| **Windows (CMD)** | `python -m venv venv` <br> `venv\Scripts\activate` |
+| **Windows (PowerShell)** | `python -m venv venv` <br> `.\venv\Scripts\Activate.ps1` |
+| **Linux / macOS** | `python3 -m venv venv` <br> `source venv/bin/activate` |
+
+#### 3. Install Dependencies
+Regardless of your OS, once the virtual environment is activated, run:
+```bash
+pip install -r requirements.txt
+```
+*Note for Linux Users: You might need to install `python3-venv` first if it's not present: `sudo apt install python3-venv`.*
+
+#### 4. Start Lab Services
+To launch the integrated environment using Docker:
+```bash
+bash automation/startup/start_lab.sh
+```
+*Note: You must accept the security disclaimer to proceed. This will start the Flask app, PHP app, and MySQL database.*
+
+## 📖 Usage
+
+VulnArena provides a comprehensive CLI and web interface for security testing:
+
+### Lab Management
+*   **Start the Lab**: `python src/core/engine.py start`
+*   **Stop the Lab**: `python src/core/engine.py stop`
+
+### Automated Security Testing
+*   **Run Full Test Suite**: `pytest tests/`
+*   **Validate Vulnerabilities**: `python src/attacks/automated/vuln_validator.py`
+*   **Execute SQLi Bypass**: `python src/vulnerabilities/sql_injection/auth_bypass.py`
+
+### Access Points
+*   **Flask Dashboard**: [http://localhost:5000](http://localhost:5000)
+*   **PHP Lab Environment**: [http://localhost:8080](http://localhost:8080)
+*   **MySQL Database**: `localhost:3306`
 
 ---
 **Developed for the Security Community.**
