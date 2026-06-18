@@ -1,95 +1,90 @@
-# ⚠️ CRITICAL SECURITY WARNING ⚠️
+# VulnArena: Full-Stack Security Research & Pentest Laboratory
 
-**VulnArena is an INTENTIONALLY VULNERABLE web application lab.**
+![Security](https://img.shields.io/badge/Security-Pentesting-red)
+![Tech](https://img.shields.io/badge/Tech-Flask%20%7C%20PHP%20%7C%20Docker-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-> **DO NOT** deploy this application on public-facing servers.
-> **DO NOT** expose it to the internet.
-> **DO NOT** use it in production environments.
-> **DO NOT** connect it to real data or systems.
-
-This project is designed **SOLELY** for security education, penetration testing practice, and AppSec research in isolated environments. By using this software, you accept full responsibility for your actions and agree to use it ethically and legally.
-
----
-
-## 🚀 Project Overview
-
-**VulnArena** is a comprehensive, portfolio-ready cybersecurity project featuring a deliberately vulnerable Flask and PHP web application lab. It is designed to demonstrate common web vulnerabilities and their corresponding secure remediations.
-
-### 🎯 Core Objectives
-- Provide a hands-on environment for practicing manual and automated pentesting.
-- Demonstrate the "Before vs. After" of application security.
-- Showcase offensive security workflows and reporting.
+> [!CAUTION]
+> **LEGAL & ETHICAL DISCLAIMER**
+> This repository contains **intentionally vulnerable software**. It is designed strictly for educational purposes, security research, and penetration testing practice. **Never** deploy this application on public-facing servers or production environments. Unauthorized access to computer systems is illegal. Use this lab responsibly in isolated environments.
 
 ---
 
-## 📸 Screenshots
+## 🛡️ Project Vision
 
-*(Screenshots can be found in `docs/screenshots/` after running the lab)*
+**VulnArena** is a comprehensive, multi-stack web application laboratory designed to bridge the gap between theoretical security knowledge and practical application. By providing a "Before vs. After" perspective on critical vulnerabilities, this project serves as a robust platform for:
 
-1. **Lab Startup Banner**
-2. **Vulnerable Login Page**
-3. **SQL Injection Demonstration**
-4. **XSS Payload Execution**
-5. **Admin Panel Bypass**
+*   **Security Engineers** to analyze exploit patterns and develop robust mitigations.
+*   **Penetration Testers** to hone manual exploitation and automation skills.
+*   **Developers** to understand the root causes of common vulnerabilities like the OWASP Top 10.
 
----
+## 🚀 Key Features
 
-## 🏗️ Architecture
+*   **Hybrid Architecture**: Combines a modern **Python/Flask** backend with a classic **PHP 8.1** environment to demonstrate vulnerability patterns across different tech stacks.
+*   **Exploit-to-Remediation Mapping**: Every vulnerable endpoint is paired with a `secure_version` implementation, demonstrating industry-standard fixes (e.g., Parameterized Queries, CSP, Secure Session Management).
+*   **Automated Security Workflows**: Includes custom Python-based attack scripts and wrappers for industry tools (sqlmap, ffuf) to demonstrate automated vulnerability validation.
+*   **Containerized Orchestration**: Fully automated deployment using **Docker & Docker Compose**, ensuring a consistent, isolated, and reproducible lab environment.
+*   **Integrated Reporting**: A built-in reporting engine that transforms raw pentest findings into professional, human-readable HTML reports.
 
-The lab consists of multiple components orchestrated via Docker:
-- **Flask App**: Modern Python web framework with various vulnerabilities.
-- **PHP App**: Classic PHP vulnerabilities including SQLi and File Upload.
-- **MySQL**: Shared database for both applications.
-- **Nginx**: Web server for the PHP application.
+## 🏗️ Technical Architecture
 
----
+The lab is orchestrated as a microservices environment:
 
-## 🛠️ Tech Stack
-- **Backend**: Python (Flask), PHP 8.1
-- **Database**: MySQL, SQLAlchemy
-- **Containerization**: Docker, Docker Compose
-- **Testing/Security**: Pytest, Requests, BeautifulSoup4
-
----
-
-## 🛡️ Implemented Vulnerabilities
-| Vulnerability | Description | Secure Version |
+| Component | Technology | Role |
 | :--- | :--- | :--- |
-| **SQL Injection** | Auth bypass & UNION-based | Parameterized Queries |
-| **XSS** | Reflected & DOM-based | Output Encoding & CSP |
-| **CSRF** | Email change bypass | Anti-CSRF Tokens |
-| **SSRF** | Internal metadata access | Input Validation/Allowlisting |
-| **IDOR** | User data enumeration | Proper AuthZ Checks |
-| **Insecure Upload** | Arbitrary file upload | Extension Filtering |
+| **Frontend/API** | Flask, Jinja2, Bootstrap | Modern web interface & API vulnerabilities |
+| **Legacy App** | PHP 8.1, Apache | Traditional web vulnerability patterns |
+| **Database** | MySQL 8.0 | Centralized data store for both applications |
+| **Security Layer** | SQLAlchemy, bcrypt | Implementation of secure remediations |
+| **DevOps** | Docker, Bash | Environment isolation & automation |
 
----
+## 🛡️ Vulnerability Coverage & Remediations
 
-## ⚙️ Installation & Setup
+| Vulnerability Class | Lab Implementation | Professional Remediation |
+| :--- | :--- | :--- |
+| **Injection** | SQLi (Auth Bypass, UNION-based) | Parameterized Queries & ORM usage |
+| **Broken Access Control** | IDOR (User Enum), Admin Bypass | Attribute-Based Access Control (ABAC) |
+| **Cross-Site Scripting** | Reflected & DOM-based XSS | Context-aware Output Encoding & CSP |
+| **Broken Auth** | Weak Session Mgmt, Plaintext Passwords | Bcrypt Hashing & Secure Cookie Attributes |
+| **SSRF** | Internal Metadata Access | Strict URL Validation & Egress Filtering |
+| **Insecure Uploads** | Arbitrary File Execution | MIME-type Validation & Filename Sanitization |
+
+## 🛠️ Setup & Usage
 
 ### Prerequisites
-- Docker & Docker Compose
-- Python 3.10+ (for local scripts)
+*   Docker & Docker Compose
+*   Python 3.10+ (for automation scripts)
 
-### Quick Start
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd vulnarena
-   ```
-2. Start the lab:
-   ```bash
-   bash automation/startup/start_lab.sh
-   ```
-3. Access the apps:
-   - Flask: [http://localhost:5000](http://localhost:5000)
-   - PHP: [http://localhost:8080](http://localhost:8080)
+### Installation
+1.  **Clone the Lab**
+    ```bash
+    git clone https://github.com/Colly-dev/vulnarena.git
+    cd vulnarena
+    ```
 
----
+2.  **Initialize the Environment**
+    ```bash
+    bash automation/startup/start_lab.sh
+    ```
+    *Note: You must accept the security disclaimer to proceed.*
 
-## 🧪 Running Tests
+3.  **Access Points**
+    *   **Flask Dashboard**: `http://localhost:5000`
+    *   **PHP Lab**: `http://localhost:8080`
+    *   **Database**: `localhost:3306`
+
+## 🧪 Security Testing & Validation
+
+To run the automated security suite and verify remediations:
+
 ```bash
+# Run the full test suite
 pytest tests/
+
+# Execute specific vulnerability validation
+python src/attacks/automated/vuln_validator.py
 ```
 
-## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+---
+**Developed for the Security Community.**
+If you find this project useful for your learning or research, feel free to contribute or reach out!
